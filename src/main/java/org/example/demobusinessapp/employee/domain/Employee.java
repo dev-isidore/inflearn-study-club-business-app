@@ -21,10 +21,13 @@ public class Employee {
     private Team team;
 
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private Role role;
 
+    @Column(nullable = false)
     private LocalDate birthday;
 
+    @Column(nullable = false)
     private LocalDate workStartDate;
 
     @Builder

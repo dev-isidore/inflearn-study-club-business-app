@@ -1,6 +1,7 @@
 package org.example.demobusinessapp.employee.dto.request;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import org.example.demobusinessapp.employee.domain.Role;
 
@@ -14,9 +15,12 @@ public class EmployeeCreateRequest {
 
     private String teamName;
 
+    @NotNull
     private Role role;
 
+    @NotNull
     private LocalDate birthday;
 
+    @NotNull
     private LocalDate workStartDate;
 }
