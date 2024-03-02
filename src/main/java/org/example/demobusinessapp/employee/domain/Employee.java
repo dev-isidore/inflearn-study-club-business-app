@@ -36,8 +36,4 @@ public class Employee {
         this.birthday = birthday;
         this.workStartDate = workStartDate;
     }
-
-    public void updateRole(Role role) {
-        this.role = role;
-    }
 }

@@ -5,8 +5,10 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.example.demobusinessapp.employee.domain.Employee;
+import org.example.demobusinessapp.employee.domain.Role;
 
 import java.util.List;
+import java.util.Optional;
 
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -24,5 +26,9 @@ public class Team {
 
     public Team(String name) {
         this.name = name;
+    }
+
+    public Optional<Employee> getManager() {
+        return this.employees.stream().filter(employee -> employee.getRole() == Role.MANAGER).findFirst();
     }
 }

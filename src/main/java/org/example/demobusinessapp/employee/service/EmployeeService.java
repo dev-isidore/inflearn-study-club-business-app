@@ -29,7 +29,7 @@ public class EmployeeService {
 
         Team team = teamRepository.findByName(request.getTeamName()).orElseThrow(()-> new IllegalArgumentException("설정할 수 없는 팀입니다."));
 
-        if (request.getRole() == Role.MANAGER && team.getEmployees().stream().anyMatch(employee -> employee.getRole() == Role.MANAGER)) {
+        if (request.getRole() == Role.MANAGER && team.getManager().isPresent()) {
             throw new IllegalArgumentException("이미 매니저가 있는 팀입니다.");
         }
 
