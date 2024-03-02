@@ -10,6 +10,8 @@ import org.example.demobusinessapp.team.domain.TeamRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class EmployeeService {
@@ -32,5 +34,9 @@ public class EmployeeService {
         builder.team(team)
                 .role(request.getRole());
         return employeeRepository.save(builder.build());
+    }
+
+    public List<Employee> getEmployees() {
+        return employeeRepository.findAll();
     }
 }
