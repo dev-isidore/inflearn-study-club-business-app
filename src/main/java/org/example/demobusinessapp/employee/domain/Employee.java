@@ -1,14 +1,14 @@
 package org.example.demobusinessapp.employee.domain;
 
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.example.demobusinessapp.team.domain.Team;
 
 import java.time.LocalDate;
 
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Getter
 public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,4 +26,18 @@ public class Employee {
     private LocalDate birthday;
 
     private LocalDate workStartDate;
+
+    @Builder
+    public Employee(Long id, String name, Team team, Role role, LocalDate birthday, LocalDate workStartDate) {
+        this.id = id;
+        this.name = name;
+        this.team = team;
+        this.role = role;
+        this.birthday = birthday;
+        this.workStartDate = workStartDate;
+    }
+
+    public void updateRole(Role role) {
+        this.role = role;
+    }
 }
