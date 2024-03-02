@@ -13,6 +13,7 @@ public class EmployeeCreateRequest {
     @NotBlank
     private String name;
 
+    @NotBlank
     private String teamName;
 
     @NotNull

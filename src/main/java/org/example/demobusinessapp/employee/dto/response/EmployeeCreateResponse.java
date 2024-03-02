@@ -20,9 +20,7 @@ public class EmployeeCreateResponse {
 
     public EmployeeCreateResponse(Employee employee) {
         this.name = employee.getName();
-        if(employee.getTeam() != null) {
-            this.teamName = employee.getTeam().getName();
-        }
+        this.teamName = employee.getTeam().getName();
         this.role = employee.getRole();
         this.birthday = employee.getBirthday();
         this.workStartDate = employee.getWorkStartDate();

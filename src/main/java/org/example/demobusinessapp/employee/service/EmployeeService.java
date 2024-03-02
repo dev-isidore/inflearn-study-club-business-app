@@ -23,10 +23,6 @@ public class EmployeeService {
                 .birthday(request.getBirthday())
                 .workStartDate(request.getWorkStartDate());
 
-        if(request.getTeamName() == null) {
-            return employeeRepository.save(builder.build());
-        }
-
         Team team = teamRepository.findByName(request.getTeamName()).orElseThrow(()-> new IllegalArgumentException("설정할 수 없는 팀입니다."));
 
         if (request.getRole() == Role.MANAGER && team.getManager().isPresent()) {

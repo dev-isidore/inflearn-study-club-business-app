@@ -18,6 +18,7 @@ public class Employee {
     private String name;
 
     @ManyToOne
+    @JoinColumn(nullable = false)
     private Team team;
 
     @Enumerated(EnumType.STRING)
