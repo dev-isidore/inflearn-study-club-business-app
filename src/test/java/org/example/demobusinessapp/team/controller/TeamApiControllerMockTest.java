@@ -16,6 +16,7 @@ import java.util.List;
 import static java.util.Collections.emptyList;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -29,7 +30,10 @@ class TeamApiControllerMockTest {
     @Test
     void createTeam() {
         final String teamName = "dev";
-        when(teamService.createTeam(any())).thenReturn(new Team(teamName));
+        Team team = mock(Team.class);
+        when(team.getId()).thenReturn(1L);
+        when(team.getName()).thenReturn(teamName);
+        when(teamService.createTeam(any())).thenReturn(team);
 
         TeamCreateResponse response = teamApiController.createTeam(new TeamCreateRequest());
 
@@ -56,7 +60,7 @@ class TeamApiControllerMockTest {
         }
         {
             when(teamService.getTeams()).thenReturn(emptyList());
-            
+
             List<TeamQueryResponse> responseList = teamApiController.getTeams();
 
             assertThat(responseList.size()).isEqualTo(0);
