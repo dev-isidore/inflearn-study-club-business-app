@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import org.example.demobusinessapp.employee.domain.Employee;
 import org.example.demobusinessapp.employee.domain.Role;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,7 +23,7 @@ public class Team {
     private String name;
 
     @OneToMany(mappedBy = "team")
-    private List<Employee> employees;
+    private final List<Employee> employees = new ArrayList<>();
 
     public Team(String name) {
         this.name = name;
