@@ -30,6 +30,9 @@ public class EmployeeApiController {
     public List<EmployeeQueryResponse> getEmployees() {
         List<EmployeeQueryResponse> responses = new ArrayList<>();
         List<Employee> employees = employeeService.getEmployees();
+        if(employees == null) {
+            return responses;
+        }
         for (Employee employee : employees) {
             responses.add(new EmployeeQueryResponse(employee));
         }

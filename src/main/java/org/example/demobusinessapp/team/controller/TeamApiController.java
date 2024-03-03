@@ -31,6 +31,9 @@ public class TeamApiController {
     public List<TeamQueryResponse> getTeams() {
         List<TeamQueryResponse> responses = new ArrayList<>();
         List<Team> teams = teamService.getTeams();
+        if(teams == null) {
+            return responses;
+        }
         for (Team team : teams) {
             responses.add(new TeamQueryResponse(team));
         }
