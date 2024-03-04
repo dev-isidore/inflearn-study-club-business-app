@@ -3,8 +3,11 @@ package org.example.demobusinessapp.domain.employee;
 import jakarta.persistence.*;
 import lombok.*;
 import org.example.demobusinessapp.domain.team.Team;
+import org.example.demobusinessapp.domain.work.Work;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -30,6 +33,9 @@ public class Employee {
 
     @Column(nullable = false)
     private LocalDate workStartDate;
+
+    @OneToMany(mappedBy = "employee")
+    private final List<Work> workList = new ArrayList<>();
 
     @Builder
     public Employee(Long id, String name, Team team, Role role, LocalDate birthday, LocalDate workStartDate) {

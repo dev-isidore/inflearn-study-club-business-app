@@ -8,15 +8,15 @@ import java.time.LocalDate;
 
 @Getter
 public class EmployeeCreateResponse {
-    private String name;
+    private final String name;
 
-    private String teamName;
+    private final String teamName;
 
-    private Role role;
+    private final Role role;
 
-    private LocalDate birthday;
+    private final LocalDate birthday;
 
-    private LocalDate workStartDate;
+    private final LocalDate workStartDate;
 
     public EmployeeCreateResponse(Employee employee) {
         this.name = employee.getName();

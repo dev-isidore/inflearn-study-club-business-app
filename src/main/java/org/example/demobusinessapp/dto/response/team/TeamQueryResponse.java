@@ -5,9 +5,9 @@ import org.example.demobusinessapp.domain.team.Team;
 
 @Getter
 public class TeamQueryResponse {
-    private String name;
+    private final String name;
     private String manager;
-    private int memberCount;
+    private final int memberCount;
 
     public TeamQueryResponse(Team team) {
         this.name = team.getName();
