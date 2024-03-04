@@ -41,5 +41,6 @@ public class Work {
             throw new IllegalArgumentException("현재 출근한 상태가 아닙니다.");
         }
         this.endTime = offTime;
+        this.status = Status.OFF;
     }
 }

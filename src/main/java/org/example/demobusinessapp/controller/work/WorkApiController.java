@@ -19,7 +19,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-public class WorkController {
+public class WorkApiController {
     private final WorkService workService;
 
     @PutMapping("/api/v1/work/on")
