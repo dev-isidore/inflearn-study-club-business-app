@@ -75,7 +75,7 @@ public class WorkApiControllerMockTest {
 
         MonthlyWorkResponse response = workApiController.getMonthlyWorks(TEST_EMPLOYEE_ID, YearMonth.of(2024, 3));
 
-        assertThat(response.getSum()).isEqualTo(27);
+        assertThat(response.getSum()).isEqualTo(3 * 9 * 60);
         assertThat(response.getDetail().size()).isEqualTo(3);
     }
 }

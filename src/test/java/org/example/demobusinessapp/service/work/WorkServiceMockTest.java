@@ -41,6 +41,7 @@ public class WorkServiceMockTest {
 
     @BeforeEach
     void setUp() {
+        TEST_EMPLOYEE.getWorkList().clear();
         when(employeeRepository.findById(eq(TEST_EMPLOYEE_ID))).thenReturn(Optional.of(TEST_EMPLOYEE));
     }
 
