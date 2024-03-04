@@ -22,19 +22,18 @@ public class WorkService {
     private final EmployeeRepository employeeRepository;
 
     @Transactional
-    public Work goOnWork(Long workerId, LocalDateTime now) {
-        Employee employee = employeeRepository.findById(workerId).orElseThrow(
-                () -> new IllegalArgumentException("존재하지 않는 id입니다."));
+    public Work goOnWork(Long employeeId, LocalDateTime now) {
+        final Employee employee = getEmployeeForWork(employeeId);
 
-        Work work = new Work(employee, now);
+        final Work work = new Work(employee, now);
 
-        List<Work> workList = employee.getWorkList();
+        final List<Work> workList = employee.getWorkList();
         if(workList.isEmpty()) {
             workList.add(work);
             return workRepository.save(work);
         }
 
-        Work lastWork = workList.getLast();
+        final Work lastWork = workList.getLast();
         if(lastWork.getStatus() == Status.ON) {
             if(lastWork.getStartTime().isBefore(LocalDateTime.of(now.toLocalDate(), LocalTime.MIN))) {
                 throw new IllegalArgumentException("완료되지 않은 이전 근무 기록이 있습니다.");
@@ -47,28 +46,31 @@ public class WorkService {
     }
 
     @Transactional
-    public Work goOffWork(Long workerId, LocalDateTime now) {
-        Employee employee = employeeRepository.findById(workerId).orElseThrow(
-                () -> new IllegalArgumentException("존재하지 않는 id입니다."));
+    public Work goOffWork(Long employeeId, LocalDateTime now) {
+        final Employee employee = getEmployeeForWork(employeeId);
 
-        Work lastWork = employee.getWorkList().getLast();
+        final Work lastWork = employee.getWorkList().getLast();
 
         if (lastWork.getStartTime().isBefore(LocalDateTime.of(now.toLocalDate(), LocalTime.MIN))) {
             throw new IllegalArgumentException("금일 출근한 이력이 없습니다.");
         }
         lastWork.off(now);
 
-        return lastWork;
+        return workRepository.save(lastWork);
     }
 
-    // todo 현재 기능상 문제되는 경우를 해소시키는 update하는 동작이 필요하다.
+    // todo 실 사용을 한다면 문제되는 경우를 해소시키는 update 동작이 필요하다.
 
-    public List<Work> getMonthlyCompletedWorks(Long workerId, YearMonth yearMonth) {
-        Employee employee = employeeRepository.findById(workerId).orElseThrow(
-                () -> new IllegalArgumentException("존재하지 않는 id입니다."));
+    public List<Work> getMonthlyCompletedWorks(Long employeeId, YearMonth yearMonth) {
+        final Employee employee = getEmployeeForWork(employeeId);
 
         return workRepository.findWorksByEmployeeAndStatusAndStartTimeIsBetween(employee, Status.OFF,
-                LocalDateTime.of(yearMonth.atDay(1), LocalTime.MIDNIGHT),
-                LocalDateTime.of(yearMonth.atEndOfMonth().plusDays(1), LocalTime.MIN));
+                LocalDateTime.of(yearMonth.atDay(1), LocalTime.MIN),
+                LocalDateTime.of(yearMonth.atEndOfMonth(), LocalTime.MAX));
+    }
+
+    private Employee getEmployeeForWork(Long employeeId) {
+        return employeeRepository.findById(employeeId).orElseThrow(
+                () -> new IllegalArgumentException("존재하지 않는 id입니다."));
     }
 }

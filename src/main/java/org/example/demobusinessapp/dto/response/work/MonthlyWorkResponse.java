@@ -9,8 +9,8 @@ public class MonthlyWorkResponse {
     private final List<DailyWorkResponse> detail;
     private final long sum;
 
-    public MonthlyWorkResponse(List<DailyWorkResponse> dailyWorkRespons, long sum) {
-        this.detail = dailyWorkRespons;
+    public MonthlyWorkResponse(List<DailyWorkResponse> dailyWorkResponse, long sum) {
+        this.detail = dailyWorkResponse;
         this.sum = sum;
     }
 }
