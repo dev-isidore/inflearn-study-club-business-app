@@ -24,24 +24,7 @@ public class WorkService {
     @Transactional
     public Work goOnWork(Long employeeId, LocalDateTime now) {
         final Employee employee = getEmployeeForWork(employeeId);
-
-        final Work work = new Work(employee, now);
-
-        final List<Work> workList = employee.getWorkList();
-        if(workList.isEmpty()) {
-            workList.add(work);
-            return workRepository.save(work);
-        }
-
-        final Work lastWork = workList.getLast();
-        if(lastWork.getStatus() == Status.ON) {
-            if(lastWork.getStartTime().isBefore(LocalDateTime.of(now.toLocalDate(), LocalTime.MIN))) {
-                throw new IllegalArgumentException("완료되지 않은 이전 근무 기록이 있습니다.");
-            }
-            throw new IllegalArgumentException("금일 출근한 기록이 있습니다.");
-        }
-
-        workList.add(work);
+        final Work work = employee.goOnWork(now);
         return workRepository.save(work);
     }
 
@@ -49,14 +32,9 @@ public class WorkService {
     public Work goOffWork(Long employeeId, LocalDateTime now) {
         final Employee employee = getEmployeeForWork(employeeId);
 
-        final Work lastWork = employee.getWorkList().getLast();
+        Work work = employee.goOffWork(now);
 
-        if (lastWork.getStartTime().isBefore(LocalDateTime.of(now.toLocalDate(), LocalTime.MIN))) {
-            throw new IllegalArgumentException("금일 출근한 이력이 없습니다.");
-        }
-        lastWork.off(now);
-
-        return workRepository.save(lastWork);
+        return workRepository.save(work);
     }
 
     // todo 실 사용을 한다면 문제되는 경우를 해소시키는 update 동작이 필요하다.
