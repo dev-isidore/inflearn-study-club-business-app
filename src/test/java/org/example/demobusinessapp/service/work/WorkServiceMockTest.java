@@ -4,6 +4,7 @@ import org.example.demobusinessapp.domain.employee.Employee;
 import org.example.demobusinessapp.domain.employee.EmployeeRepository;
 import org.example.demobusinessapp.domain.work.Work;
 import org.example.demobusinessapp.domain.work.WorkRepository;
+import org.example.demobusinessapp.service.employee.EmployeeService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -34,7 +35,7 @@ public class WorkServiceMockTest {
     @Mock
     private WorkRepository workRepository;
     @Mock
-    private EmployeeRepository employeeRepository;
+    private EmployeeService employeeService;
 
     @InjectMocks
     private WorkService workService;
@@ -42,7 +43,7 @@ public class WorkServiceMockTest {
     @BeforeEach
     void setUp() {
         TEST_EMPLOYEE.getWorkList().clear();
-        when(employeeRepository.findById(eq(TEST_EMPLOYEE_ID))).thenReturn(Optional.of(TEST_EMPLOYEE));
+        when(employeeService.getEmployee(eq(TEST_EMPLOYEE_ID))).thenReturn(Optional.of(TEST_EMPLOYEE));
     }
 
     @Test
