@@ -1,9 +1,9 @@
 INSERT INTO
-    team (name)
+    team (name, day_off_buffer)
 VALUES
-    ('DEV'),
-    ('FIN'),
-    ('QA')
+    ('DEV', 5),
+    ('FIN', 7),
+    ('QA', 5)
 ;
 
 INSERT INTO

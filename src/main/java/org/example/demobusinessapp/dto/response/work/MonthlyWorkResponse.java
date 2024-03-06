@@ -6,11 +6,11 @@ import java.util.List;
 
 @Getter
 public class MonthlyWorkResponse {
-    private final List<DailyWorkResponse> detail;
+    private final List<DailyRecordResponse> detail;
     private final long sum;
 
-    public MonthlyWorkResponse(List<DailyWorkResponse> dailyWorkResponse, long sum) {
-        this.detail = dailyWorkResponse;
+    public MonthlyWorkResponse(List<DailyRecordResponse> dailyRecordResponse, long sum) {
+        this.detail = dailyRecordResponse;
         this.sum = sum;
     }
 }

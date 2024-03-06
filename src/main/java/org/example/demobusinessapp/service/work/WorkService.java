@@ -2,10 +2,10 @@ package org.example.demobusinessapp.service.work;
 
 import lombok.RequiredArgsConstructor;
 import org.example.demobusinessapp.domain.employee.Employee;
-import org.example.demobusinessapp.domain.employee.EmployeeRepository;
 import org.example.demobusinessapp.domain.work.Status;
 import org.example.demobusinessapp.domain.work.Work;
 import org.example.demobusinessapp.domain.work.WorkRepository;
+import org.example.demobusinessapp.service.employee.EmployeeService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,9 +17,8 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class WorkService {
-
+    private final EmployeeService employeeService;
     private final WorkRepository workRepository;
-    private final EmployeeRepository employeeRepository;
 
     @Transactional
     public Work goOnWork(Long employeeId, LocalDateTime now) {
@@ -48,7 +47,7 @@ public class WorkService {
     }
 
     private Employee getEmployeeForWork(Long employeeId) {
-        return employeeRepository.findById(employeeId).orElseThrow(
+        return employeeService.getEmployee(employeeId).orElseThrow(
                 () -> new IllegalArgumentException("존재하지 않는 id입니다."));
     }
 }

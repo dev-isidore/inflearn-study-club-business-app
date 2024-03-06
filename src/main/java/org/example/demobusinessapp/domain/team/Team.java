@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.example.demobusinessapp.domain.employee.Employee;
 import org.example.demobusinessapp.domain.employee.Role;
 
@@ -24,6 +25,10 @@ public class Team {
 
     @OneToMany(mappedBy = "team")
     private final List<Employee> employees = new ArrayList<>();
+
+    @Setter
+    @Column
+    private int dayOffBuffer = 0;
 
     public Team(String name) {
         this.name = name;
