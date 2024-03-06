@@ -5,6 +5,7 @@ import org.example.demobusinessapp.domain.dayOff.DayOff;
 import org.example.demobusinessapp.dto.response.dayOff.NewDayOffResponse;
 import org.example.demobusinessapp.dto.response.dayOff.RemainingYearlyDayOffsResponse;
 import org.example.demobusinessapp.service.dayOff.DayOffService;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -18,8 +19,8 @@ public class DayOffApiController {
     private final DayOffService dayOffService;
 
     @PutMapping("/api/v1/dayOff")
-    public NewDayOffResponse putDayOff(@RequestParam("employeeId") Long employeeId, @RequestParam("date")LocalDate date) {
-        final DayOff dayOff = dayOffService.goDayOff(employeeId, date, LocalDate.now());
+    public NewDayOffResponse putDayOff(@RequestParam("employeeId") Long employeeId, @RequestParam("date") String date) {
+        final DayOff dayOff = dayOffService.goDayOff(employeeId, LocalDate.parse(date), LocalDate.now());
         return new NewDayOffResponse(dayOff);
     }
 

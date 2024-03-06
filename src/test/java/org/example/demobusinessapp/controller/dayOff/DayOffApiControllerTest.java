@@ -35,7 +35,7 @@ class DayOffApiControllerTest {
         DayOff dayOff = new DayOff(TEST_EMPLOYEE, TEST_DATE);
         when(dayOffService.goDayOff(eq(TEST_EMPLOYEE_ID), eq(TEST_DATE), any())).thenReturn(dayOff);
 
-        NewDayOffResponse response = dayOffApiController.putDayOff(TEST_EMPLOYEE_ID, TEST_DATE);
+        NewDayOffResponse response = dayOffApiController.putDayOff(TEST_EMPLOYEE_ID, "2024-03-06");
 
         assertThat(response.getDate()).isEqualTo(TEST_DATE);
         assertThat(response.getEmployeeId()).isEqualTo(TEST_EMPLOYEE_ID);
